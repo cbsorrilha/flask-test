@@ -1,4 +1,4 @@
-from models import Customers
+from models.customers import Customers
 
 class CustomerController():
   @staticmethod

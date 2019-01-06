@@ -1,8 +1,8 @@
 import os
-from flask import Flask, request
+from flask import Flask
 from string import Template
 from mongoengine import connect
-from controllers import CustomerController as Customers
+from routes.customers import customerRoutes
 
 USER = os.getenv('DB_USERNAME')
 PASS = os.getenv('DB_PASSWORD')
@@ -13,14 +13,4 @@ app = Flask(__name__)
 
 connect('petvip', host=HOST)
 
-@app.route("/customers")
-def list():
-  return Customers.list(request).to_json()
-
-@app.route("/customers/<customerId>")
-def getOne(customerId):
-  return Customers.getOne(request, customerId).to_json()
-
-@app.route("/customers/search")
-def search():
-  return Customers.search(request).to_json()
+customerRoutes(app)
